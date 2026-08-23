@@ -1,0 +1,568 @@
+/* ==========================================================================
+   Theme variables
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+  --bg: #0d0d0e;
+  --surface: #1a1a1c;
+  --btn: #2a2a2d;
+  --btn-hover: #38383c;
+  --btn-utility: #3c3c40;
+  --btn-utility-hover: #4a4a4f;
+  --text: #f5f5f7;
+  --text-secondary: #8e8e93;
+  --accent: #ff9f0a;
+  --accent-hover: #ffb02e;
+  --accent-text: #14100a;
+  --sci-text: #ff9f0a;
+  --shadow: rgba(0, 0, 0, 0.45);
+  --panel-shadow: rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme="light"] {
+  --bg: #eef0f3;
+  --surface: #ffffff;
+  --btn: #e9e9ec;
+  --btn-hover: #dcdce0;
+  --btn-utility: #d7d8dc;
+  --btn-utility-hover: #c9cace;
+  --text: #1c1c1e;
+  --text-secondary: #6e6e73;
+  --accent: #ff9500;
+  --accent-hover: #ffa726;
+  --accent-text: #ffffff;
+  --sci-text: #d97e00;
+  --shadow: rgba(30, 30, 40, 0.12);
+  --panel-shadow: rgba(30, 30, 40, 0.18);
+}
+
+:root {
+  --page-padding: clamp(10px, 2vw, 24px);
+  --gap: clamp(6px, 1.4vh, 14px);
+  --radius: clamp(14px, 2vw, 26px);
+  --history-width: clamp(240px, 22vw, 320px);
+}
+
+/* Shorter viewports: tighten spacing and radii so everything still fits */
+@media (max-height: 760px) {
+  :root { --gap: clamp(5px, 1.1vh, 10px); --page-padding: clamp(8px, 1.6vh, 16px); }
+}
+@media (max-height: 620px) {
+  :root { --gap: clamp(4px, 0.9vh, 8px); --radius: 16px; }
+}
+
+/* ==========================================================================
+   Base — the page itself never scrolls
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* .app pins everything inside the viewport and centers the shell.
+   Padding is included in the 100dvh box (border-box), so the shell only
+   ever has to fit the space that's actually left over — never more. */
+.app {
+  height: 100dvh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--page-padding);
+  box-sizing: border-box;
+}
+
+/* .shell is the height-bounded column: topbar on top, layout fills the rest.
+   height:100% resolves against .app's content box, so it can never exceed
+   the space left after padding — capped at 840px so it doesn't sprawl on
+   very tall desktop windows. */
+.shell {
+  height: 100%;
+  max-height: 840px;
+  width: fit-content;
+  max-width: 96vw;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* ==========================================================================
+   Top bar
+   ========================================================================== */
+
+.topbar {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: clamp(0.95rem, 2vh, 1.15rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.icon-btn {
+  flex: 0 0 auto;
+  background: var(--btn);
+  border: none;
+  color: var(--text);
+  width: clamp(32px, 4.5vh, 40px);
+  height: clamp(32px, 4.5vh, 40px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.icon-btn:hover {
+  background: var(--btn-hover);
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+.icon-btn .icon {
+  width: 55%;
+  height: 55%;
+}
+
+.icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-sun {
+  display: block;
+}
+
+:root[data-theme="light"] .icon-moon {
+  display: none;
+}
+
+/* ==========================================================================
+   Layout row — calculator (+ optional desktop history panel)
+   ========================================================================== */
+
+.layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   Calculator shell
+   ========================================================================== */
+
+.calculator {
+  flex: 0 0 auto;
+  width: min(90vw, 400px);
+  height: 100%;
+  min-height: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: clamp(10px, 2vh, 20px) clamp(12px, 2.4vw, 20px);
+  box-shadow: 0 20px 60px var(--shadow);
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.2vh, 12px);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Display
+   ========================================================================== */
+
+.display {
+  flex: 0 1 auto;
+  min-height: clamp(46px, 12vh, 96px);
+  padding: clamp(6px, 1.5vh, 14px) clamp(6px, 1.5vw, 10px) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+  overflow: hidden;
+}
+
+.expression {
+  font-size: clamp(0.75rem, 2.4vh, 1.05rem);
+  color: var(--text-secondary);
+  min-height: 1.4em;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
+.expression::-webkit-scrollbar {
+  display: none;
+}
+
+.result {
+  font-size: clamp(1.5rem, min(8vw, 6.5vh), 2.8rem);
+  font-weight: 500;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
+.result::-webkit-scrollbar {
+  display: none;
+}
+
+.result.error {
+  color: #ff5252;
+  font-size: clamp(1.2rem, min(6vw, 4.8vh), 1.9rem);
+}
+
+/* ==========================================================================
+   Mode toggle
+   ========================================================================== */
+
+.mode-toggle {
+  flex: 0 0 auto;
+  display: flex;
+  background: var(--btn);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: clamp(0.72rem, 1.7vh, 0.85rem);
+  font-weight: 600;
+  padding: clamp(5px, 1vh, 8px) 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mode-btn.active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+/* ==========================================================================
+   Keypad — fills all remaining vertical space, rows share it evenly
+   ========================================================================== */
+
+.keypad {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  overflow: hidden;
+}
+
+.row {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: var(--gap);
+}
+
+/* The scientific block behaves as 3 rows' worth of flex space, so each
+   individual row (scientific or basic) ends up the same height. */
+.sci-rows {
+  display: none;
+  flex: 3 1 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.sci-rows.visible {
+  display: flex;
+}
+
+.sci-row {
+  flex: 1 1 0;
+  min-height: 0;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.btn {
+  border: none;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.85rem, min(4.2vw, 3.4vh), 1.35rem);
+  font-weight: 500;
+  color: var(--text);
+  background: var(--btn);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.08s ease;
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--btn-hover);
+}
+
+.btn:active {
+  transform: scale(0.92);
+}
+
+.btn-utility {
+  background: var(--btn-utility);
+  color: var(--text);
+  font-weight: 600;
+  font-size: clamp(0.75rem, min(3.6vw, 3vh), 1.1rem);
+}
+
+.btn-utility:hover {
+  background: var(--btn-utility-hover);
+}
+
+.btn-operator {
+  background: var(--btn-utility);
+  color: var(--accent);
+  font-size: clamp(0.95rem, min(4.4vw, 3.6vh), 1.4rem);
+}
+
+.btn-operator:hover {
+  background: var(--btn-utility-hover);
+}
+
+.btn-equals {
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: clamp(0.95rem, min(4.4vw, 3.6vh), 1.4rem);
+}
+
+.btn-equals:hover {
+  background: var(--accent-hover);
+}
+
+.btn-sci {
+  font-size: clamp(0.62rem, min(2.6vw, 2.3vh), 0.85rem);
+  color: var(--sci-text);
+  font-weight: 600;
+}
+
+.btn-sci.active,
+.angle-mode.active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+#invToggle.active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+/* ==========================================================================
+   History panel — overlay drawer on mobile/tablet, inline side panel on
+   large-enough desktop viewports (see media query below)
+   ========================================================================== */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 20;
+}
+
+.overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(100%, 380px);
+  background: var(--surface);
+  box-shadow: -12px 0 40px var(--panel-shadow);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.history-panel.open {
+  transform: translateX(0);
+}
+
+.history-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.history-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-empty {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 40px;
+}
+
+.history-item {
+  flex: 0 0 auto;
+  background: var(--btn);
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: right;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--text);
+  width: 100%;
+}
+
+.history-item:hover {
+  background: var(--btn-hover);
+}
+
+.history-item .h-expression {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.history-item .h-expression::-webkit-scrollbar {
+  display: none;
+}
+
+.history-item .h-result {
+  font-size: 1.15rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.clear-history-btn {
+  flex: 0 0 auto;
+  margin-top: 14px;
+  border: none;
+  background: var(--btn-utility);
+  color: var(--text);
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  width: 100%;
+}
+
+.clear-history-btn:hover {
+  background: var(--btn-utility-hover);
+}
+
+/* ==========================================================================
+   Desktop: history becomes an inline side panel instead of an overlay,
+   so it never adds page height and the calculator can use horizontal space.
+   ========================================================================== */
+
+@media (min-width: 900px) and (min-height: 600px) {
+  .overlay {
+    display: none;
+  }
+
+  .history-panel {
+    position: static;
+    height: 100%;
+    transform: none;
+    box-shadow: none;
+    border-radius: var(--radius);
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
+  }
+
+  .history-panel.open {
+    width: var(--history-width);
+    padding: 20px;
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
