@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — LumaCart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+
+  <div class="announcement-bar">FREE SHIPPING ON ORDERS OVER ₹999 &nbsp;•&nbsp; EASY 7-DAY RETURNS</div>
+
+  <header class="navbar" data-navbar>
+    <div class="navbar__inner">
+      <a href="../index.html" class="logo">
+        <span class="logo__mark">L</span>
+        LumaCart
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="products.html">Shop</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"></button>
+        <a href="cart.html" class="icon-btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+          <span class="badge is-hidden" data-cart-count>0</span>
+        </a>
+        <button class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu-overlay" data-menu-overlay></div>
+  <nav class="mobile-menu" data-mobile-menu>
+    <a href="../index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <main>
+    <div class="auth-layout">
+      <div class="auth-visual">
+        <div class="auth-visual__logo">
+          <span class="logo__mark" style="background:rgba(255,255,255,0.16);">L</span>
+          LumaCart
+        </div>
+        <h2 class="auth-visual__title">Welcome back to your everyday edit.</h2>
+        <p class="auth-visual__desc">Sign in to pick up your cart, wishlist and orders right where you left off.</p>
+      </div>
+
+      <div class="auth-form-side">
+        <div class="auth-card">
+          <h2>Login</h2>
+          <p>New here? <a href="register.html" style="color:var(--primary);font-weight:600;">Create an account</a> instead.</p>
+
+          <form class="auth-form" data-login-form novalidate>
+            <div class="form-field">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" name="email" placeholder="you@example.com" />
+              <span class="form-error"></span>
+            </div>
+            <div class="form-field">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" name="password" placeholder="••••••••" />
+              <span class="form-error"></span>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Login</button>
+          </form>
+
+          <p class="auth-switch">Don't have an account? <a href="register.html">Register</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border-top:none;padding-top:1.4rem;">
+      <span>© <span data-year></span> LumaCart. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/wishlist.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>
