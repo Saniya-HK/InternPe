@@ -1,0 +1,119 @@
+/* ==========================================================
+   LumaCart — responsive.css
+   All media queries live here only.
+   Breakpoints: 1440 / 1024 / 768 / 480 / 360
+   ========================================================== */
+
+/* ---------- ≤1440px : slightly tighter desktop ---------- */
+@media (max-width: 1440px) {
+  .hero__visual { height: 420px; }
+}
+
+/* ---------- ≤1024px : tablet ---------- */
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .menu-toggle { display: flex; }
+
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__visual { height: 360px; order: -1; margin-bottom: 1rem; }
+  .hero__content { max-width: 100%; }
+
+  .collections-grid { grid-template-columns: repeat(2, 1fr); }
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .category-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+
+  .details-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .details-info { position: static; }
+  .details-visual span { font-size: 6rem; }
+
+  .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
+  .order-summary { position: static; }
+
+  .auth-visual { display: none; }
+  .auth-layout { grid-template-columns: 1fr; }
+
+  .editorial { grid-template-columns: 1fr; }
+  .editorial-visual { order: -1; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; row-gap: 2.4rem; }
+}
+
+/* ---------- ≤768px : large phone / small tablet ---------- */
+@media (max-width: 768px) {
+  :root { --nav-h: 68px; --announce-h: 36px; }
+
+  section { padding: 3rem 0; }
+
+  .hero__visual { height: 300px; }
+  .floating-card { padding: 0.8rem 1rem; }
+  .floating-card__icon { font-size: 1.4rem; }
+  .floating-card--headphones { display: none; }
+
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; }
+
+  .section-header { flex-direction: column; align-items: flex-start; gap: 0.9rem; }
+
+  .collections-grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+  .product-card__emoji { font-size: 2.8rem; }
+  .product-card__add { margin: 0.8rem 1rem 1rem; width: calc(100% - 2rem); }
+  .product-card__body { padding: 0.9rem 1rem 0.2rem; }
+
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .filter-select-wrap select { width: 100%; }
+
+  .cart-item {
+    grid-template-columns: 64px 1fr auto;
+    grid-template-areas:
+      "visual info remove"
+      "qty qty subtotal";
+    row-gap: 0.7rem;
+  }
+  .cart-item__visual { grid-area: visual; width: 64px; height: 64px; font-size: 1.7rem; }
+  .cart-item__info { grid-area: info; }
+  .cart-item__remove { grid-area: remove; }
+  .cart-item__qty { grid-area: qty; justify-self: start; }
+  .cart-item__subtotal { grid-area: subtotal; justify-self: end; }
+
+  .form-grid { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  .newsletter-form { flex-direction: column; }
+
+  .details-actions { flex-direction: column; }
+  .details-actions .btn { width: 100%; min-width: 0; }
+}
+
+/* ---------- ≤480px : phones ---------- */
+@media (max-width: 480px) {
+  .hero__title { font-size: clamp(2.2rem, 9vw, 2.8rem); }
+  .hero__visual { height: 260px; }
+  .floating-card--bag { right: -4%; }
+  .floating-card--sneaker { left: -4%; }
+
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .product-card__emoji { font-size: 2.3rem; }
+  .product-card__name { font-size: 0.92rem; }
+  .product-card__price { font-size: 1rem; }
+
+  .category-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .category-card { padding: 1.2rem 0.9rem; }
+
+  .details-visual span { font-size: 4.5rem; }
+
+  .mobile-menu { width: 88%; }
+
+  .promo-banner, .checkout-form-card, .order-summary { padding: 1.4rem; }
+}
+
+/* ---------- ≤360px : small phones ---------- */
+@media (max-width: 360px) {
+  .container { width: 94%; }
+  .hero__title { font-size: 2rem; }
+  .product-grid { gap: 0.6rem; }
+  .btn { padding: 0 1.2rem; font-size: 0.88rem; }
+}
