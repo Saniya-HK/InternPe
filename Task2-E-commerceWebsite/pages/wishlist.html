@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Wishlist — LumaCart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+
+  <div class="announcement-bar">FREE SHIPPING ON ORDERS OVER ₹999 &nbsp;•&nbsp; EASY 7-DAY RETURNS</div>
+
+  <header class="navbar" data-navbar>
+    <div class="navbar__inner">
+      <a href="../index.html" class="logo">
+        <span class="logo__mark">L</span>
+        LumaCart
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="products.html">Collections</a>
+        <a href="products.html?sort=newest">New Arrivals</a>
+        <a href="products.html">Offers</a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"></button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.7-4.35-9.3-8.1C1 10.1 1.6 6.6 4.5 5.1c2.3-1.2 4.8-.4 6 1.4l1.5 2 1.5-2c1.2-1.8 3.7-2.6 6-1.4 2.9 1.5 3.5 5 1.8 7.8C18.7 16.65 12 21 12 21Z"/></svg>
+          <span class="badge is-hidden" data-wishlist-count>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+          <span class="badge is-hidden" data-cart-count>0</span>
+        </a>
+        <div data-account-slot></div>
+        <button class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu-overlay" data-menu-overlay></div>
+  <nav class="mobile-menu" data-mobile-menu>
+    <a href="../index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="products.html">Collections</a>
+    <a href="products.html?sort=newest">New Arrivals</a>
+    <a href="products.html">Offers</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Home</a> / Wishlist</div>
+        <h1>Your Wishlist</h1>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="product-grid" data-wishlist-grid></div>
+
+        <div class="empty-state is-hidden" data-wishlist-empty>
+          <span class="empty-state__icon">🤍</span>
+          <h2>Your wishlist is waiting.</h2>
+          <p>Save the pieces you love and come back to them anytime.</p>
+          <a href="products.html" class="btn btn--primary">Explore Collection</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo__mark">L</span>
+          LumaCart
+        </a>
+        <p>Thoughtfully curated everyday essentials for the way you live, work and express yourself.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html?sort=newest">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shipping</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span data-year></span> LumaCart. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/wishlist.js"></script>
+</body>
+</html>
